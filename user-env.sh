@@ -1,4 +1,5 @@
 # Setup user environment (personal prefs)
+echo "  configuring .shrc ..."
 cp /usr/share/skel/dot.shrc .shrc
 sed -E -i '' 's/set -o emacs/# set -o emacs/' .shrc
 sed -E -i '' 's/# set -o vi/set -o vi/' .shrc
@@ -12,7 +13,6 @@ alias d=\"ls -alFG\"
 ' .shrc > /tmp/shrc
 mv /tmp/shrc .shrc
 
-
 cat << EOF >> .shrc
 # set prompt: ``username@hostname$ ''
 PS1="\`whoami\`@\`hostname | sed 's/\..*//'\`"
@@ -22,4 +22,5 @@ case \`id -u\` in
 esac
 EOF
 
+echo "  creating .profile ..."
 cp /usr/share/skel/dot.profile .profile

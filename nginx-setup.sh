@@ -3,10 +3,10 @@
 DOMAIN=.ElixirConf.com
 
 echo
-echo "*** Setting nginx.conf with domain ***"
-echo "    ${DOMAIN}"
-echo "    /usr/local/etc/nginx/nginx.conf"
-echo "***"
+echo "  *** Setting nginx.conf with domain ***"
+echo "      ${DOMAIN}"
+echo "      /usr/local/etc/nginx/nginx.conf"
+echo "  ***"
 
 if [ -f "/usr/local/etc/nginx/nginx.conf.orig" ]
 then
@@ -40,6 +40,7 @@ http {
 EOF
 sudo mv /tmp/nginx.conf /usr/local/etc/nginx/nginx.conf 
 
+echo "  modifying /etc/rc.conf to enable nginx"
 if grep -Fxq "nginx_enable=YES" /etc/rc.conf
 then
 else

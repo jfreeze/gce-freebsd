@@ -3,22 +3,24 @@
 echo "Running FreeBSD GCE Instance setup..."
 echo
 
-sudo pkg install -y wget
-
 echo "Setting up user environment for `whoami`"
 echo
-wget https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/user-env.sh
-./user-env.sh
-exit
+curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/user-env.sh > /tmp/user-env.sh
+/bin/sh /tmp/user-env.sh
 
 echo "Installing base applications..."
-wget https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/base-installs.sh
+curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/base-installs.sh > /tmp/base-installs.sh
+/bin/sh /tmp/base-installs.sh
 
 echo "Installing web applications..."
-wget https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/web-installs.sh
+curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/web-installs.sh > /tmp/web-installs.sh
+/bin/sh /tmp/web-installs.sh
 
 echo "Configuring nginx..."
-wget https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/nginx-setup.sh
+curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/nginx-setup.sh > /tmp/nginx-setup.sh
+chmod 755 /tmp/nginx-setup.sh
+echo "Nginx needs DOMAIN manually setup."
+echo "Configure /tmp/nginx-setup.sh and run /tmp/nginx-setup.sh to complete"
 
 echo
 echo "Setup complete"

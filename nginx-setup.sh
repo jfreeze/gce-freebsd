@@ -1,6 +1,10 @@
 #!/bin/sh 
 
+# Edit DOMAIN to point to hostname"
 DOMAIN=.ElixirConf.com
+
+echo "  installing nginx ..."
+sudo pkg install -y nginx
 
 echo
 echo "  *** Setting nginx.conf with domain ***"

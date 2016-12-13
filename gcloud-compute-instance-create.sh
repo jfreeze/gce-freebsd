@@ -22,13 +22,12 @@ run () {
     --image freebsd-11-0-release-amd64 \
     --image-project=freebsd-org-cloud-dev \
     --boot-disk-device-name "${2}-bootdisk" \
-    --no-address \
     --boot-disk-size "40" 
 EOF
 )
 
   echo ${CMD}
-  #echo "${CMD}" | /bin/sh
+  echo "${CMD}" | /bin/sh
 }
 
 run $1 $2 $3

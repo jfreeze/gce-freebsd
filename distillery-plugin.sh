@@ -62,7 +62,8 @@ EOF
 
   echo "${CMD}
   
-  $(cat rel/config.exs)" > rel/config.exs
+  $(cat rel/config.exs)
+  fred" > rel/config.exs
 }
 
 run $1

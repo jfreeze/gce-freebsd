@@ -60,7 +60,9 @@ end
 EOF
 )
 
-  echo "${CMD}\n\n$(cat rel/config.exs)" > rel/config.exs
+  echo "${CMD}
+  
+  $(cat rel/config.exs)" > rel/config.exs
 }
 
 run $1

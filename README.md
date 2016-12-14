@@ -300,7 +300,7 @@ Next we setup for eDeliver by creating <code>.deliver</code> directory
 and adding a <code>.deliver/config</code> file.
 
     # Add .deliver/config with settings changed for your project.
-  	APP="elixirconf"
+    APP="elixirconf"
 
     AUTO_VERSION=commit-count+branch-unless-master
 
@@ -312,7 +312,6 @@ and adding a <code>.deliver/config</code> file.
                                    # Needs to be an actual DNS or IP 
                                    # address. Won't accept a .ssh/config 
                                    # alias
-
     BUILD_USER="jimfreeze"
     BUILD_AT="/app/builds/elixirconf"
     
@@ -334,17 +333,45 @@ and adding a <code>.deliver/config</code> file.
       fi
     }
 
+In <code>.deliver/config</code> you need to set your project name.
+This is the same project name as set in <code>mix.exs</code>.
+
+    APP="elixirconf"
+
+I have also added <code>AUTO_VERSION</code> to my config file to
+prevent having to specify it in scripts or from the command line.
+There are various options to setting the version. See the docs
+for more option.
+
+    AUTO_VERSION=commit-count+branch-unless-master
+
+The <code>BUILD_AT</code> directory is where your local mix project directory
+gets recreated on the build machine.
+
+Also, new with Distillery 1.0, you don't need <code>RELEASE_DIR</code>, but
+you will need <code>DELIVER_TO</code> directory. I made this match
+the <code>output_dir</code> from <code>rel/config.exs</code>.
+
+Finally, you need to copy your <code>config/prod.secret.exs</code> file to the
+build server and specify that location in the 
+<code>pre_erlang_get_and_update_deps()</code> part of the script.
+
+I prefer to keep my build and deploy directories outside of a users directory,
+and have chosen <code>/app</code> to place my builds releases. 
+
 Create directories on the build server as specified in .deliver/config if needed.
 
     ssh ecw "sudo mkdir /app; sudo chown jimfreeze:jimfreeze /app"
 
-  # Create the needed directories on the build server and copy prod.secret.exs to the build server
-  ssh ecw "mkdir -p /app/builds/secret"
-  scp config/prod.secret.exs jimfreeze@ecw:/app/builds/secret
+    # Create the needed directories on the build server and copy prod.secret.exs to the build server
+    ssh ecw "mkdir -p /app/builds/secret"
+    scp config/prod.secret.exs jimfreeze@ecw:/app/builds/secret
 
-  # Deploy!!!
-  # Before deploying, make sure that your project file is up to date with
-    the Distillery and eDeliver configs checked into git.
+
+# Deploy!!!
+
+Before deploying, make sure that your project file is up to date with
+the Distillery and eDeliver configs checked into git.
 
   # ALSO, since we haven't setup the database in this deployment, you will
     need to comment out the Repo in lib/elixirconf.ex

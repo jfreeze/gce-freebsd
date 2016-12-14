@@ -373,12 +373,12 @@ Create directories on the build server as specified in .deliver/config if needed
 Ok, not quite yet. We have a few more changes to make to our local
 project before we can deploy.
 
-ALSO, since we haven't setup the database in this deployment, you will
+Since we haven't setup the database in this deployment, you will
 need to comment out the Repo in <code>lib/elixirconf.ex</code>.
 
     #  supervisor(Elixirconf.Repo, []),
 
-AND, setup the production config
+AND, setup the production config file <code>config/prod.exs</code>,
 
     config :elixirconf, Elixirconf.Endpoint,
       #http: [port: {:system, "PORT"}],

@@ -465,7 +465,26 @@ for my build/deploy machine.
     ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; "
     ssh ecw "rm -rf /app/deploys/elixirconf/releases"
 
+# SSL Configuration
+
+For SSL configuration of the website we are going to obtain a certificate from 
+[Letsencrypt](https://letsencrypt.org/). Adding this certificate in
+the standalone method used here means that we will need to stop the production
+webserver. The process only takes a few seconds, so if you have your
+new <code>nginx.conf</code> file ready, you can limit your downtime.
+
+You will also need to configure DNS before setting up SSL. An "A" record
+and a "CNAME" are required to complete SSL authentication.
+
+    Type          Name                 Content
+      A	       elixirconf.com          1.2.3.4
+    CNAME	   www.elixirconf.co m	  elixirconf.com
 
 
 
+sudo pkg install -y py27-certbot
+
+sudo /usr/local/etc/rc.d/nginx stop
+
+sudo certbot certonly  --standalone --rsa-key-size 4096 --email jimfreeze@gmail.com -d 2pg.at
 

@@ -68,37 +68,51 @@ link in the top center of the page to create a new project.
 I prefer a customized a network so I don't have unused firewall rules in it
 and I like GCE's target tags that allow firewall rules to be applied to selected
 machines only. For this reason, I delete the default network and firewall rules
-on new projects.
+on new projects. Notice that the examples shown here are for the GCE project 
+named <code>elixirconf</code>. You will need to change <code>elixirconf</code> to
+the name of your project.
 
-	  # delete default firewall rules
-	  ./gcloud-compute-firewall-rules-delete.sh elixirconf
+    # delete default firewall rules
+    ./gcloud-compute-firewall-rules-delete.sh elixirconf
 
-	  # delete default network
-	  gcloud compute networks delete "default" \
-  		--project elixirconf
+    # delete default network
+    gcloud compute networks delete "default" \
+      --project elixirconf
 
-Create a Network
-	./gcloud-compute-network-create.sh elixirconf elixirconf-net
+## Create a Network
 
-Create firewall rules
-	./gcloud-compute-firewall-rules-create.sh elixirconf elixirconf-net
+Next, create a network. I used the name <code>elixirconf-net</code>.
 
-Create a Server
-	./gcloud-compute-instance-create.sh elixirconf elixirconf-www-01 elixirconf-net
+    ./gcloud-compute-network-create.sh elixirconf elixirconf-net
 
-Connect to the new VM Instance (Your web server)
-  # Set a static IP if desired, by clicking on the instance
-  # name, click edit at the top of the page,
-  # change from ephemeral IP to static IP (create a name)
-  # save the changes
+## Create firewall rules
 
-  # connect with gcloud to update project ssh metadata
-  gcloud compute ssh "elixirconf-www-01" \
-    --project "elixirconf" \
-    --zone "us-central1-a" 
+The <code>gcloud-compute-firewall-rules-create.sh</code> script creates
+firewall rules for private cloud access, http, https, ping and ssh.
 
-  # Until we set a domain for this machine, you can configure ~/.ssh/config
-  # edit ~/.ssh/config and add 
+    ./gcloud-compute-firewall-rules-create.sh elixirconf elixirconf-net
+
+## Create a Server
+The <code>gcloud-compute-instance-create.sh</code> script creates 
+a FreeBSD 11.0-RELEASE machine with the smallest configuration of
+CPU and RAM possible. It runs about $5 per month.
+
+    ./gcloud-compute-instance-create.sh elixirconf elixirconf-www-01 elixirconf-net
+
+## Connect to the new VM Instance (Your web server)
+
+Set a static IP if desired, by clicking on the instance
+name, click edit at the top of the page,
+change from ephemeral IP to static IP (create a name)
+save the changes
+
+    # connect with gcloud to update project ssh metadata
+    gcloud compute ssh "elixirconf-www-01" \
+      --project "elixirconf" \
+      --zone "us-central1-a" 
+
+  Until we set a domain for this machine, you can configure ~/.ssh/config
+  edit ~/.ssh/config and add 
 
   Host ecw
     HostName <host-IP>

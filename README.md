@@ -370,8 +370,8 @@ Create directories on the build server as specified in .deliver/config if needed
 
 # Deploy!!!
 
-Before deploying, make sure that your project file is up to date with
-the Distillery and eDeliver configs checked into git.
+Ok, not quite yet. We have a few more changes to make to our local
+project before we can deploy.
 
 ALSO, since we haven't setup the database in this deployment, you will
 need to comment out the Repo in <code>lib/elixirconf.ex</code>.
@@ -381,8 +381,30 @@ need to comment out the Repo in <code>lib/elixirconf.ex</code>.
 AND, setup the production config
 
     config :elixirconf, Elixirconf.Endpoint,
-      # http: [port: {:system, "PORT"}],
-      http: [host: "127.0.0.1", port: 4000],
+      #http: [port: {:system, "PORT"}],
+      http: [ip: {127,0,0,1}, port: 4000],
+      server: true,
+      url: [host: "elixirconf.com", port: 80],
+      version: Mix.Project.config[:version],
+      cache_static_manifest: "priv/static/manifest.json"
+    
+Pay particular attention to 
+
+      http: [ip: {127,0,0,1}, port: 4000],
+      server: true,
+
+Since we are running this server through <code>nginx</code>, the deployed Phoenix
+server only needs to listen on the local machine. This will prevent outside access
+to your Phoenix server on port 4000. Also note that instead of <code>host:</code>
+the address is specified with <code>ip:</code>, AND that the address is a <code>tuple</code>.
+
+Finally, note the line <code>server: true</code>. YOUR PHOENIX SERVER WILL NOT RUN
+WITHOUT THIS AND IT IS NOT INCLUDED BY DEFAULT. Don't forget to add this line.
+If you do, a telltale result is that you will see the server listening to random
+ports yet not connections are made when trying to connect to those ports.
+
+Before deploying, make sure that your project file is up to date with
+the Distillery and eDeliver configs checked into git.
 
 
 Start the deploy process with

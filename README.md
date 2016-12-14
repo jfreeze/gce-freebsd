@@ -400,32 +400,28 @@ the address is specified with <code>ip:</code>, AND that the address is a <code>
 
 Finally, note the line <code>server: true</code>. YOUR PHOENIX SERVER WILL NOT RUN
 WITHOUT THIS AND IT IS NOT INCLUDED BY DEFAULT. Don't forget to add this line.
-If you do, a telltale result is that you will see the server listening to random
-ports yet not connections are made when trying to connect to those ports.
+If you do, a telltale result is that you will see the server listening on random
+ports yet not responding to any attempted connections.
 
-Before deploying, make sure that your project file is up to date with
+Before deploying, make sure that your project files are up to date with
 the Distillery and eDeliver configs checked into git.
-
 
 Start the deploy process with
 
-    /app/build/elixirconf/rel/elixirconf/releases/0.0.1+22
+    mix edeliver build release
 
-  	git rev-list HEAD --count
-	RELEASE_VERSION="0.0.1+19" mix edeliver build release --auto-version=commit-count
+Finish the deploy with
+
+    mix edeliver deploy release to production --start-deploy
+
+Add the --verbose flag if needed to debug any issues.
+
 
     # remove builds on the build server
-ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
-rm .deliver/releases/*gz
-# version is set in .deliver/config
-mix edeliver build release
-
-  Add the --verbose flag if needed to debug any issues.
-
-  Finish the deploy with
-
-
-mix edeliver deploy release to production --start-deploy
+    ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
+    rm .deliver/releases/*gz
+    # version is set in .deliver/config
+    mix edeliver build release
 
     mix edeliver stop production
     mix edeliver start production

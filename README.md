@@ -240,7 +240,8 @@ That's it for the remote server.
 # Back to your local machine
 
 You are now ready to update your Phoenix project by adding
-Distillery and Edeliver deps to <code>mix.exs</code>
+Distillery and Edeliver deps to <code>mix.exs</code>.
+Switch to your Phoenix project and edit <code>mix.exs</code>.
 
     # in defp deps add
     {:distillery, "~> 1.0" },

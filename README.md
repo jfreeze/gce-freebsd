@@ -215,16 +215,30 @@ to support <code>eDeliver</code>.
 
 ### Install nginx
 
-/tmp/nginx-setup.sh
+If this host is to be used as a <code>web</code> server, 
+edit the install script first at <code>/tmp/nginx-setup.sh</code>
+and set the <code>DOMAIN</code> variable for your project.
 
-# Edit DOMAIN to point to hostname"
-DOMAIN=.ElixirConf.com
+    # Edit DOMAIN to point to hostname
+    DOMAIN=.ElixirConf.com
 
-  # If not rebooted yet, start nginx
-  sudo /usr/local/etc/rc.d/nginx start  
+Then run the nginx setup script
+
+    /tmp/nginx-setup.sh
+
+Finally, feel free to review the <code>nginx</code> config file
+with the command
+
+    sudo vim /usr/local/etc/nginx/nginx.conf
+
+If not rebooted yet, you can start <code>nginx</code> with
+
+    sudo /usr/local/etc/rc.d/nginx start  
+
+That's it for the remote server.
 
 # Back to your local machine
-  
+
   # Add Distillery and Edeliver deps to mix.exs
 
   {:distillery, "~> 1.0" },

@@ -14,6 +14,14 @@ This guide should be of some help to anyone wanting to setup a website with Phoe
 if you are not using FreeBSD or GCE. Just note, that some scripts will need to be
 customized to your situation. I will try to point that out wherever possible.
 
+To use the scripts provided here, you will need to have a GCE account and have
+the [gcloud SDK](https://cloud.google.com/sdk/downloads) installed on your computer.
+
+Also, you will need to download this project to get access to some of the gcloud helper
+scripts to run on your local computer.
+
+    git clone git@github.com:jfreeze/gce-freebsd.git
+
 # Choices
 
 The setup includes instructions on creating a 

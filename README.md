@@ -273,7 +273,7 @@ and run
 
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>
 
-This script will add the plugin to <code>rel/config.exs</code>.
+This script will add the plugin to the top of the file <code>rel/config.exs</code>.
 
 Now edit <code>rel/config.exs</code> and change the default environment to <code>:prod</code>
 
@@ -285,42 +285,51 @@ Add the newly added plugin to the :prod environment in rel/config.exs
 Remember to reference the name of your plugin instead of Elixirconf.
 
     environment :prod do
-      set plugins: [Elixirconf.PhoenixDigestTask]
+      plugin Elixirconf.PhoenixDigestTask
+      set output_dir: "/app/deploys/elixirconf" # for v1.0
       ...
 
-  # Create .deliver/ directory
-  # Add .deliver/config with settings changed for your project.
+Remember to change the plugin name <code>ElixirConf</code> to the name of your plugin.
+While you are editing this file, you can go ahead and add the <code>output_dir</code>
+directory for the build machine. This is the directory where deploys
+are built to.
 
-	APP="elixirconf"
+### eDeliver
 
-	BUILD_CMD=mix
-	RELEASE_CMD=mix
-	USING_DISTILLERY=true
+Next we setup for eDeliver by creating <code>.deliver</code> directory
+and adding a <code>.deliver/config</code> file.
 
-	BUILD_HOST="130.211.190.72"    # change this when DNS is set
-								   # Needs to be an actual DNS or IP 
-								   # address. Won't accept a .ssh/config 
-								   # alias
+    # Add .deliver/config with settings changed for your project.
+  	APP="elixirconf"
 
-	BUILD_USER="jimfreeze"
-	BUILD_AT="/app/builds/elixirconf"
+  	BUILD_CMD=mix
+  	RELEASE_CMD=mix
+  	USING_DISTILLERY=true
 
-	#STAGING_HOSTS=""
-	#STAGING_USER="jimfreeze"
+  	BUILD_HOST="130.211.190.72"    # change this when DNS is set
+  								   # Needs to be an actual DNS or IP 
+  								   # address. Won't accept a .ssh/config 
+  								   # alias
 
-	PRODUCTION_HOSTS="130.211.190.72"    # deploy / production hosts separated by space
-	PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
-	DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
-
-	# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
-	pre_erlang_get_and_update_deps() {
-	  local _prod_secret_path="/app/builds/secret/prod.secret.exs"
-	  if [ "$TARGET_MIX_ENV" = "prod" ]; then
-	    __sync_remote "
-	      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
-	    "
-	  fi
-	}
+  	BUILD_USER="jimfreeze"
+  	BUILD_AT="/app/builds/elixirconf"
+     
+  	#STAGING_HOSTS=""
+  	#STAGING_USER="jimfreeze"
+  
+  	PRODUCTION_HOSTS="130.211.190.72"    # deploy / production hosts separated by space
+  	PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
+  	DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
+  
+  	# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+  	pre_erlang_get_and_update_deps() {
+  	  local _prod_secret_path="/app/builds/secret/prod.secret.exs"
+  	  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+  	    __sync_remote "
+  	      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+  	    "
+  	  fi
+  	}
 
   # Create directories on the build server as specified in .deliver/config if needed.
   ssh ecw "sudo mkdir /app; sudo chown jimfreeze:jimfreeze /app"

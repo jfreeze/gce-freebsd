@@ -373,20 +373,21 @@ Create directories on the build server as specified in .deliver/config if needed
 Before deploying, make sure that your project file is up to date with
 the Distillery and eDeliver configs checked into git.
 
-  # ALSO, since we haven't setup the database in this deployment, you will
-    need to comment out the Repo in lib/elixirconf.ex
+ALSO, since we haven't setup the database in this deployment, you will
+need to comment out the Repo in <code>lib/elixirconf.ex</code>.
 
-     #      supervisor(Elixirconf.Repo, []),
+    #  supervisor(Elixirconf.Repo, []),
 
-  AND, setup the production config
-config :elixirconf, Elixirconf.Endpoint,
-  # http: [port: {:system, "PORT"}],
-  http: [host: "127.0.0.1", port: 4000],
+AND, setup the production config
+
+    config :elixirconf, Elixirconf.Endpoint,
+      # http: [port: {:system, "PORT"}],
+      http: [host: "127.0.0.1", port: 4000],
 
 
-  # Start the deploy process with
+Start the deploy process with
 
-/app/build/elixirconf/rel/elixirconf/releases/0.0.1+22
+    /app/build/elixirconf/rel/elixirconf/releases/0.0.1+22
 
   	git rev-list HEAD --count
 	RELEASE_VERSION="0.0.1+19" mix edeliver build release --auto-version=commit-count

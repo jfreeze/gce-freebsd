@@ -71,7 +71,7 @@ left of the page, select <code>IAM &amp; Admin</code>, then click on
 <code>All Projects</code>. You should see a <code>+ CREATE PROJECT</code> 
 link in the top center of the page to create a new project.
 
-## Creating the VM Network 
+## Create the VM Network 
 
 I prefer a customized a network so I don't have unused firewall rules in it
 and I like GCE's target tags that allow firewall rules to be applied to selected
@@ -87,13 +87,13 @@ the name of your project.
     gcloud compute networks delete "default" \
       --project elixirconf
 
-## Create a Network
+### Create a Network
 
 Next, create a network. I used the name <code>elixirconf-net</code>.
 
     ./gcloud-compute-network-create.sh elixirconf elixirconf-net
 
-## Create firewall rules
+### Create firewall rules
 
 The <code>gcloud-compute-firewall-rules-create.sh</code> script creates
 firewall rules for private cloud access, http, https, ping and ssh.
@@ -101,6 +101,7 @@ firewall rules for private cloud access, http, https, ping and ssh.
     ./gcloud-compute-firewall-rules-create.sh elixirconf elixirconf-net
 
 ## Create a Server
+
 The <code>gcloud-compute-instance-create.sh</code> script creates 
 a FreeBSD 11.0-RELEASE machine with the smallest configuration of
 CPU and RAM possible. It runs about $5 per month. I chose the name
@@ -108,13 +109,19 @@ CPU and RAM possible. It runs about $5 per month. I chose the name
 
     ./gcloud-compute-instance-create.sh elixirconf elixirconf-www-01 elixirconf-net
 
-## Connect to the new VM Instance (Your web server)
+### Set a Static IP
 
-Set a static IP if desired, by clicking on the instance
-name, click edit at the top of the page,
-change from ephemeral IP to static IP (create a name)
-save the changes
+If you want, you can get a reserved static IP for your new VM instance.
+Since this is a one time task, it is simple enough to do
+it from the GCE web console.
 
+In the console, click on the instance name, click edit at the top of the page,
+change the IP address from <code>ephemeral IP</code> to <code>static IP</code>.
+You will need to create a name for your static IP. I used <code>elixirconf-com</code>.
+Save the changes.
+
+### Connect to the new VM Instance (Your web server)
+Set a static IP if desired, by 
     # connect with gcloud to update project ssh metadata
     gcloud compute ssh "elixirconf-www-01" \
       --project "elixirconf" \

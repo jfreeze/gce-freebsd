@@ -196,12 +196,15 @@ The scripts provided here install <code>elixir</code> and provide the script for
 installation, but requires it to be manually installed at the end. So, even though <code>elixir</code>
 is not needed for a web host, the scripts here could still be used for that purpose without any change.
 
-The server setup script to prepare this host as a <code>build</code> and <code>web</code> server is:
+The server setup script prepares this host as a <code>build</code> and <code>web</code> server.
+Run the command below:
 
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash 
 
 This script installs several apps and also places some code in <code>/tmp</code> for you to run manually
 as needed. The base installs should not take too long to run.
+
+### Customizing the Install
 
 FreeBSD by default uses <code>sh</code> as a default shell. We need to change that to <code>bash</code>
 to support <code>eDeliver</code>.

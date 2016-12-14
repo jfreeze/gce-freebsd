@@ -204,7 +204,7 @@ Run the command below:
 This script installs several apps and also places some code in <code>/tmp</code> for you to run manually
 as needed. The base installs should not take too long to run.
 
-This script sets the user environment found with <code>user-env.sh</code>, 
+This script sets the user environment with <code>user-env.sh</code>, 
 installs the base applications with  <code>base-installs.sh</code>, 
 installs the web applications with <code>web-installs.sh</code>,
 and installs and sets up the config files for nginx (but prompts the user that installation must be run manually).
@@ -298,7 +298,7 @@ Remember to reference the name of your plugin instead of Elixirconf.
 Remember to change the plugin name <code>ElixirConf</code> to the name of your plugin.
 While you are editing this file, you can go ahead and add the <code>output_dir</code>
 directory for the build machine. This is the directory where deploys
-are built to.
+are located.
 
 ### eDeliver
 

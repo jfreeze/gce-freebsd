@@ -24,10 +24,10 @@ and [Nginx](https://nginx.org/en/) to handle web services.
 
 # Overview
 
- 1. Create a GCE instance
+ 1. Create a GCE Instance
  1. Configure nginx
- 1. Install and configure distillery
- 1. Install and configure edeliver
+ 1. Install and configure Distillery
+ 1. Install and configure eDeliver
  1. Deploy Phoenix app to web server
  1. Create SSL cert from Letsencrypt
  1. Configure nginx for SSL
@@ -38,26 +38,35 @@ The first order of business is to create a VM instance on the Google Compute Eng
 
 ## Create a GCE Project
 
-If you don't already have a project, you will need to create a project to run your
-Google Compute Engine VM's under. Google allows up to five projects.
+If you don't already have a [Google Compute Engine](https://cloud.google.com/compute) account, you will need to get one.
+I originally started these scripts for [AWS](https://aws.amazon.com), but switched to GCE because of their better (read faster)
+network, and scaling to faster CPU's with more RAM was more economical.
 
-This is a seldom done task and is easy enough to do that I am not providing
+Once in GCE, you will need to create a project to run your
+Google Compute Engine VM's under, if you don't already have one. 
+Google allows up to five projects.
+
+Since this is a seldom done task and is easy enough to do, I am not providing
 and console oriented way of creating a project. 
 
 Simply open up your [GCE console](https://console.cloud.google.com/iam-admin/iam/)
 in a web browser, click the three horizontal bars (the hamburger menu) in the upper
 left of the page, select <code>IAM &amp; Admin</code>, then click on 
 <code>All Projects</code>. You should see a <code>+ CREATE PROJECT</code> 
-link to create a new project.
+link in the top center of the page to create a new project.
 
 ## Creating the VM Network 
 
-Delete the default network (if new project)
-	# delete default firewall rules
-	./gcloud-compute-firewall-rules-delete.sh elixirconf
+I prefer a customized a network so I don't have unused firewall rules in it
+and I like GCE's target tags that allow firewall rules to be applied to selected
+machines only. For this reason, I delete the default network and firewall rules
+on new projects.
 
-	# delete default network
-	gcloud compute networks delete "default" \
+	  # delete default firewall rules
+	  ./gcloud-compute-firewall-rules-delete.sh elixirconf
+
+	  # delete default network
+	  gcloud compute networks delete "default" \
   		--project elixirconf
 
 Create a Network

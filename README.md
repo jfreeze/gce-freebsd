@@ -539,6 +539,10 @@ Update your <code>nginx.conf</code> file to be similar to
       }
     }
 
+and restart <code>nginx</code>
+
+    sudo /usr/local/etc/rc.d/nginx stop
+
 With Letsencrypt, SSL certs only last a maximum of three months. According to the docs, it
 is advised that you setup a cronjob to run twice a day to renew the certs. It won't hurt
 to run the renew script before the certs expire, the request will just be ignored, but

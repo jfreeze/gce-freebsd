@@ -30,6 +30,14 @@ setting up DNS using [DNSimple](https://dnsimple.com),
 free SSL cert generation using [Letsencrypt](https://letsencrypt.org/) for https transport,
 and [Nginx](https://nginx.org/en/) to handle web services.
 
+I should point out that the deployment configuration contained herein does not yet
+cover DB setup and deployment, and for now is a simple configuration where the
+build and deploy machines are the same machine. However, it is a simple task to
+to extend the examples shown here to have a separate build machine and deploy machine.
+
+At some future date I will extend the examples and cover deployment where databases
+and data migration are involved.
+
 # Overview
 
  1. Create a GCE Instance
@@ -95,7 +103,8 @@ firewall rules for private cloud access, http, https, ping and ssh.
 ## Create a Server
 The <code>gcloud-compute-instance-create.sh</code> script creates 
 a FreeBSD 11.0-RELEASE machine with the smallest configuration of
-CPU and RAM possible. It runs about $5 per month.
+CPU and RAM possible. It runs about $5 per month. I chose the name
+<code>elixirconf-www-01</code> for the name of this web server VM.
 
     ./gcloud-compute-instance-create.sh elixirconf elixirconf-www-01 elixirconf-net
 

@@ -1,7 +1,3 @@
-# gce-freebsd
-
-    \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash -s stable
-
 # About
 
 This is a collection of scripts and instructions for setting up a 
@@ -18,28 +14,33 @@ and [Nginx](https://nginx.org/en/) to handle web services.
 
 # Overview
 
-
  1. Create a GCE instance
- 1. configure nginx
- 1. install and configure distillery
- 1. install and configure edeliver
- 1. deploy Phoenix app to web server
- 1. create SSL cert from Letsencrypt
- 1. configure nginx for SSL
+ 1. Configure nginx
+ 1. Install and configure distillery
+ 1. Install and configure edeliver
+ 1. Deploy Phoenix app to web server
+ 1. Create SSL cert from Letsencrypt
+ 1. Configure nginx for SSL
 
+# Getting Started
 
-This script sets the user environment found in the <code>user-env.sh</code>, 
-installs the base applications in <code>base-installs.sh</code>, 
-installs the web applications in <code>web-installs.sh</code>,
-sets up the config files for nginx (but prompts the user that installation must be run manually).
+The first order of business is to create a VM instance on the Google Compute Engine cloud service.
 
-Once run, the server is ready for web application deployment.
+## Create a GCE Project
 
+If you don't already have a project, you will need to create a project to run your
+Google Compute Engine VM's under. Google allows up to five projects.
 
-Example how to create a project and VM instance
+This is a seldom done task and is easy enough to do that I am not providing
+and console oriented way of creating a project. 
 
-Create a GCE Project
-	https://cloud.google.com/compute/
+Simply open up your [GCE console] https://console.cloud.google.com/iam-admin/iam/
+in a web browser, click the three horizontal bars (the hamburger menu) in the upper
+left of the page, select <code>IAM &amp; Admin</code>, then click on 
+<code>All Projects</code>. You should see a <code>+ CREATE PROJECT</code> 
+link to create a new project.
+
+## Creating the VM Network 
 
 Delete the default network (if new project)
 	# delete default firewall rules
@@ -208,3 +209,13 @@ mix edeliver deploy release to production --start-deploy
     mix edeliver restart production
 
 
+------
+This script sets the user environment found in the <code>user-env.sh</code>, 
+installs the base applications in <code>base-installs.sh</code>, 
+installs the web applications in <code>web-installs.sh</code>,
+sets up the config files for nginx (but prompts the user that installation must be run manually).
+
+Once run, the server is ready for web application deployment.
+
+
+Example how to create a project and VM instance

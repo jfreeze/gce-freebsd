@@ -261,18 +261,29 @@ and create the Distillery release directory <code>rel</code>
 
     mix release.init
 
-and add a plugin to populate the <code>priv/</code> directory during deployments.
-Replace <code><ProjectName></code> with the name of your project.
+When deploying a project, the contents of the <code>priv/</code> directory are not
+stored in the <code>git</code> repository and must be recreated on the build machine.
+The default Phoenix method for doing this involves <code>brunch</code> and 
+can be done inside a shell script, or now, with the updated Distillery, can
+be done with an Elixir plugin.
+
+You can add that plugin to populate the <code>priv/</code> directory during deployments
+with the following script. Replace <code><ProjectName></code> with the name of your project
+and run
 
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>
 
-  # Edit rel/config.exs
-  # Change default build to :prod
-      # This sets the default environment used by `mix release`
-      default_environment: :prod
+This script will add the plugin to <code>rel/config.exs</code>.
 
-  # Add the newly added plugin to the :prod environment in rel/config.exs
-  # Remember to reference the name of your plugin instead of Elixirconf.
+Now edit <code>rel/config.exs</code> and change the default environment to <code>:prod</code>
+
+    # Change default build to :prod
+    # This sets the default environment used by `mix release`
+    default_environment: :prod
+
+Add the newly added plugin to the :prod environment in rel/config.exs
+Remember to reference the name of your plugin instead of Elixirconf.
+
     environment :prod do
       set plugins: [Elixirconf.PhoenixDigestTask]
       ...

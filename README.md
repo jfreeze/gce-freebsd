@@ -480,11 +480,69 @@ and a "CNAME" are required to complete SSL authentication.
       A	       elixirconf.com          1.2.3.4
     CNAME	   www.elixirconf.co m	  elixirconf.com
 
+If you are setting your DNS server for the first time, point your browser to 
+your new domain to verify DNS is pointing to your new server.
+
+On the web server, run the following to install the cert script
+
+    sudo pkg install -y py27-certbot
+
+And stop nginx so you can authenticate with the cert server.
+
+    sudo /usr/local/etc/rc.d/nginx stop
+
+And run the following script to automatically obtain your certs. Don't forget
+to update is for your project.
+
+    sudo certbot certonly  --standalone --rsa-key-size 4096 --email <me@email.com> -d <mydomain.com>
+
+If all goes well, you should see output like
+
+    IMPORTANT NOTES:
+     - Congratulations! Your certificate and chain have been saved at
+       /usr/local/etc/letsencrypt/live/elixirconf.com/fullchain.pem. Your
+       cert will expire on 2017-03-14. To obtain a new or tweaked version
+       of this certificate in the future, simply run certbot again. To
+       non-interactively renew *all* of your certificates, run "certbot
+       renew"
+
+Update your <code>nginx.conf</code> file to be similar to
 
 
-sudo pkg install -y py27-certbot
+    load_module /usr/local/libexec/nginx/ngx_mail_module.so;
+    load_module /usr/local/libexec/nginx/ngx_stream_module.so;
+    worker_processes  1;
+    
+    events {
+        worker_connections  256;
+    }
+    
+    http {
+      include            mime.types;
+      default_type       application/octet-stream;
+      sendfile           on;
+      keepalive_timeout  65;
+      #gzip               on;
+      server {
+        listen 80;
+        server_name elixirconf.com;
+        return 301 https://$server_name$request_uri;
+      }
+      server {
+        listen       443 ssl;
+        server_name  .elixirconf.com;
+        ssl_certificate  /usr/local/etc/letsencrypt/live/elixirconf.com/fullchain.pem;
+        ssl_certificate_key /usr/local/etc/letsencrypt/live/elixirconf.com/privkey.pem;
+        location / {
+          proxy_pass http://127.0.0.1:4000;
+        }
+      }
+    }
 
-sudo /usr/local/etc/rc.d/nginx stop
 
-sudo certbot certonly  --standalone --rsa-key-size 4096 --email jimfreeze@gmail.com -d 2pg.at
+At this point you can edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
+for URLs
+
+    #url: [host: "elixirconf.com", port: 80],
+    url: [host: "elixirconf.com", port: 443], # for ssl thru nginx
 

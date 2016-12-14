@@ -566,8 +566,11 @@ for URLs
 You can also go back now and edit <code>.deliver/config</code> and update the server
 variables with your new DNS name.
 
+    ...
     BUILD_HOST="elixirconf.com"
+    ...
     PRODUCTION_HOSTS="elixirconf.com"
+    ...
 
 It's interesting to note that these simple steps allow the following URLs to be handled:
 

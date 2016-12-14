@@ -341,7 +341,7 @@ This is the same project name as set in <code>mix.exs</code>.
 I have also added <code>AUTO_VERSION</code> to my config file to
 prevent having to specify it in scripts or from the command line.
 There are various options to setting the version. See the docs
-for more option.
+for more options.
 
     AUTO_VERSION=commit-count+branch-unless-master
 
@@ -349,7 +349,7 @@ The <code>BUILD_AT</code> directory is where your local mix project directory
 gets recreated on the build machine.
 
 Also, new with Distillery 1.0, you don't need <code>RELEASE_DIR</code>, but
-you will need <code>DELIVER_TO</code> directory. I made this match
+you will need the <code>DELIVER_TO</code> directory. I made this match
 the <code>output_dir</code> from <code>rel/config.exs</code>.
 
 Finally, you need to copy your <code>config/prod.secret.exs</code> file to the
@@ -357,7 +357,7 @@ build server and specify that location in the
 <code>pre_erlang_get_and_update_deps()</code> part of the script.
 
 I prefer to keep my build and deploy directories outside of a users directory,
-and have chosen <code>/app</code> to place my builds releases. 
+and have chosen <code>/app</code> to place my builds and releases. 
 
 Create directories on the build server as specified in .deliver/config if needed.
 

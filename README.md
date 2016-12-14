@@ -302,37 +302,40 @@ and adding a <code>.deliver/config</code> file.
     # Add .deliver/config with settings changed for your project.
   	APP="elixirconf"
 
-  	BUILD_CMD=mix
-  	RELEASE_CMD=mix
-  	USING_DISTILLERY=true
+    AUTO_VERSION=commit-count+branch-unless-master
 
-  	BUILD_HOST="130.211.190.72"    # change this when DNS is set
-  								   # Needs to be an actual DNS or IP 
-  								   # address. Won't accept a .ssh/config 
-  								   # alias
+    BUILD_CMD=mix
+    RELEASE_CMD=mix
+    USING_DISTILLERY=true
 
-  	BUILD_USER="jimfreeze"
-  	BUILD_AT="/app/builds/elixirconf"
-     
-  	#STAGING_HOSTS=""
-  	#STAGING_USER="jimfreeze"
-  
-  	PRODUCTION_HOSTS="130.211.190.72"    # deploy / production hosts separated by space
-  	PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
-  	DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
-  
-  	# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
-  	pre_erlang_get_and_update_deps() {
-  	  local _prod_secret_path="/app/builds/secret/prod.secret.exs"
-  	  if [ "$TARGET_MIX_ENV" = "prod" ]; then
-  	    __sync_remote "
-  	      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
-  	    "
-  	  fi
-  	}
+    BUILD_HOST="130.211.190.72"    # change this when DNS is set
+                                   # Needs to be an actual DNS or IP 
+                                   # address. Won't accept a .ssh/config 
+                                   # alias
 
-  # Create directories on the build server as specified in .deliver/config if needed.
-  ssh ecw "sudo mkdir /app; sudo chown jimfreeze:jimfreeze /app"
+    BUILD_USER="jimfreeze"
+    BUILD_AT="/app/builds/elixirconf"
+    
+    #STAGING_HOSTS=""
+    #STAGING_USER="jimfreeze"
+
+    PRODUCTION_HOSTS="130.211.190.72"    # deploy / production hosts separated by space
+    PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
+    DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
+
+    # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+    pre_erlang_get_and_update_deps() {
+      local _prod_secret_path="/app/builds/secret/prod.secret.exs"
+      if [ "$TARGET_MIX_ENV" = "prod" ]; then
+        __sync_remote "
+          ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+        "
+      fi
+    }
+
+Create directories on the build server as specified in .deliver/config if needed.
+
+    ssh ecw "sudo mkdir /app; sudo chown jimfreeze:jimfreeze /app"
 
   # Create the needed directories on the build server and copy prod.secret.exs to the build server
   ssh ecw "mkdir -p /app/builds/secret"

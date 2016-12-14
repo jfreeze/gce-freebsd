@@ -239,25 +239,31 @@ That's it for the remote server.
 
 # Back to your local machine
 
-  # Add Distillery and Edeliver deps to mix.exs
+You are now ready to update your Phoenix project by adding
+Distillery and Edeliver deps to <code>mix.exs</code>
 
-  {:distillery, "~> 1.0" },
-  {:edeliver, "~> 1.4.0"},
+    # in defp deps add
+    {:distillery, "~> 1.0" },
+    {:edeliver, "~> 1.4.0"},
 
-  # Also, add :edeliver to your apps in mix.exs
+Also, add <code>:edeliver</code> to your list of applications in <code>mix.exs</code>.
+It should look something like this:
 
-        applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :edeliver]]
+    applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+                   :phoenix_ecto, :postgrex, :edeliver]]
 
-  mix deps.get
+Now update your project
 
-  # Create the Distillery release directory
+    mix deps.get
 
-  mix release.init
+and create the Distillery release directory <code>rel</code>
 
-  # and add a plugin to populate the priv/ directory during deployments.
-  # Replace <ProjectName> with the name of your project.
-  \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>
+    mix release.init
+
+and add a plugin to populate the <code>priv/</code> directory during deployments.
+Replace <code><ProjectName></code> with the name of your project.
+
+    \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>
 
   # Edit rel/config.exs
   # Change default build to :prod

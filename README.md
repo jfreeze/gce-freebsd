@@ -432,12 +432,38 @@ and stop the server with the commands
 
 ### Deploy details
 
-    # remove builds on the build server
-    ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
-    rm .deliver/releases/*gz
-    # version is set in .deliver/config
-    mix edeliver build release
+Now that you have verified that deployment works, you can setup a reboot cronjob
+that starts up the web server should the server be rebooted. On the deployment
+server, add the following to cron (with your appropriate changes)
 
+    echo "@reboot /app/deploys/elixirconf/bin/elixirconf start" | crontab -
+
+As you will find out, deployments start to enter the wild and wooly west at this point.
+As you do multiple deployments, you will see that <code>mix edeliver build release</code>
+will fail if multiple releases are present on the build machine unless 
+the <code>RELEASE_VERSION</code> environment is set when mix is run.
+
+You will also notice that if multiple releases exist on the local machine, that
+<code>mix edeliver deploy release to production</code> will prompt for which
+version to deploy to the deploy machine.
+
+To keep things simple, and so deployments can run without human input, 
+you can clear out releases on the local and remote machines.
+
+Here is one possible script for auto deployment. The <code>ecw</code> is an ssh alias
+for my build/deploy machine.
+
+    #!/bin/sh
+    # remove releases on the build server
+    ssh ecw "rm -rf /tmp/releases; mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
+    # remove local releases
+    rm .deliver/releases/*gz
+    mix edeliver build release
+    mix edeliver deploy release to production --start-deploy
+
+    ssh ecw "rm -rf /tmp/releases"
+    ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; "
+    ssh ecw "rm -rf /app/deploys/elixirconf/releases"
 
 
 

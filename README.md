@@ -193,16 +193,29 @@ a web host. The differences between the two is that a web host needs <code>nginx
 but not <code>elixir</code>. And the build host needs <code>elixir</code>.
 
 The scripts provided here install <code>elixir</code> and provide the script for <code>nginx</code>
-installation, but that requires a manual step at the end. So, even though <code>elixir</code>
+installation, but requires it to be manually installed at the end. So, even though <code>elixir</code>
 is not needed for a web host, the scripts here could still be used for that purpose without any change.
 
+The server setup script to prepare this host as a <code>build</code> and <code>web</code> server is:
 
-    # Run the gce-freebsd setup script to prepare for Phoenix webserver
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash 
 
-  # Update the shell for edeliver
-  ./tmp/chg-shell-to-bash.sh
-  exit # logout and log back in
+This script installs several apps and also places some code in <code>/tmp</code> for you to run manually
+as needed. The base installs should not take too long to run.
+
+FreeBSD by default uses <code>sh</code> as a default shell. We need to change that to <code>bash</code>
+to support <code>eDeliver</code>.
+
+    # Update the shell for edeliver
+    ./tmp/chg-shell-to-bash.sh
+    exit # logout and log back in
+
+### Install nginx
+
+/tmp/nginx-setup.sh
+
+# Edit DOMAIN to point to hostname"
+DOMAIN=.ElixirConf.com
 
   # If not rebooted yet, start nginx
   sudo /usr/local/etc/rc.d/nginx start  

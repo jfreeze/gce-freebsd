@@ -171,11 +171,31 @@ You will also need the <code>server-IP</code> version for deployment
 later on since <code>eDeliver</code> will not connect unless <code>Host</code>
 is an actual DNS name or an IP address.
 
+### Update the VM instance
 
-  # Update the VM instance
-  sudo freebsd-update fetch
-  sudo freebsd-update install
-  sudo shutdown -r now  # only required if an update was found
+Depending on when you create your new VM, there may be updates ready for the machine.
+FreeBSD makes it very easy to keep a machine up-to-date and secure. Simply run
+the following on your machine after connecting via <code>ssh</code>.
+
+    sudo freebsd-update fetch
+    sudo freebsd-update install
+    sudo shutdown -r now  # only required if an update was found
+
+Note that the intances on GCE cannot be logged into using a password. This is the default setting.
+Also, you cannot log into the server as <code>root</code>. However, <code>root</code> does
+not have a password set by default, so the <code>sudo</code> commands above can be executed
+in batch.
+
+### Setup the Web Server
+
+There are several apps that need to be installed for the new server to be a build host and
+a web host. The main difference is that a web host needs <code>nginx</code> and <code>erlang</code>, 
+but not <code>elixir</code>. And the build host needs <code>elixir</code>.
+
+The scripts provided here install <code>elixir</code> and provide the script for <code>nginx</code>
+installation, but that requires a manual step at the end. So, even though <code>elixir</code>
+is not needed for a web host, the scripts here could still be used for that purpose without any change.
+
 
   # Run the gce-freebsd setup script to prepare for Phoenix webserver
   \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash 

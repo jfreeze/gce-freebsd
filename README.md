@@ -539,8 +539,18 @@ Update your <code>nginx.conf</code> file to be similar to
       }
     }
 
+With Letsencrypt, SSL certs only last a maximum of three months. According to the docs, it
+is advised that you setup a cronjob to run twice a day to renew the certs. It won't hurt
+to run the renew script before the certs expire, the request will just be ignored, but
+Letsencrypt reserves the right to cancel SSL certs at anytime, so running a renew twice 
+a day will minimize any downtime should the cert be recalled early.
 
-At this point you can edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
+Simply add to your user cronjobs by running the following on the deploy machine.
+The docs also request that you pick a random minute with which to run the cronjob.
+
+    crontab -l | { cat; echo "14 11,23 * * * /usr/local/bin/certbot renew"; } | crontab -
+
+One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
 for URLs
 
     #url: [host: "elixirconf.com", port: 80],

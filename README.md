@@ -123,21 +123,54 @@ I used <code>elixirconf-com</code>.
 Save the changes.
 
 ### Connect to the new VM Instance (Your web server)
-Set a static IP if desired, by 
-    # connect with gcloud to update project ssh metadata
+
+I find the <code>gcloud compute ssh</code> command useful, but clunky,
+so I always setup <code>ssh</code> access to my servers.
+
+When you first installed <code>gcloud</code> and ran <code>gcloud init</code>,
+it created an <code>ssh key</code> for you called <code>google_compute_engine</code>.
+
+    ls -l ~/.ssh/
+    total 64
+    -rw-r--r--  1 jimfreeze  staff   404 Dec 13 12:28 config
+    -rw-------  1 jimfreeze  staff  1675 Nov 22 16:30 google_compute_engine
+    -rw-r--r--  1 jimfreeze  staff   402 Nov 22 16:30 google_compute_engine.pub
+    -rw-r--r--  1 jimfreeze  staff  1700 Dec 12 21:26 google_compute_known_hosts
+
+Connecting to your server one time with gcloud will update project ssh metadata on 
+your server. In other words, it will push your public key to your new server, so
+run the command below to do an initial login to your new server. You will need to
+change the project and server name to the ones you used for your VM instance.
+You may also be able to skip the <code>--zone</code> part of this command.
+
     gcloud compute ssh "elixirconf-www-01" \
       --project "elixirconf" \
       --zone "us-central1-a" 
 
-  Until we set a domain for this machine, you can configure ~/.ssh/config
-  edit ~/.ssh/config and add 
+### Set up SSH access
 
-  Host ecw
-    HostName <host-IP>
-    User jimfreeze
-    IdentityFile ~/.ssh/google_compute_engine
+Until we set a domain for this machine, we can configure <code>~/.ssh/config</code>
+for easy access and we must also tell <code>ssh</code> to use the 
+<code>google_compute_engine</code> key since it has a non-standard name.
 
-  ssh ecw
+Edit your <code>~/.ssh/config</code> file and add 
+
+    Host <shortname>
+      HostName <host-IP>
+      User <username>
+      IdentityFile ~/.ssh/google_compute_engine
+
+    Host <server-IP>
+      HostName <server-IP>
+      IdentityFile ~/.ssh/google_compute_engine
+
+With this setup, you can run <code>ssh &amp;shortname></code> to connect
+to the server. It's very convenient.
+
+You will also need the <code>server-IP</code> version for deployment
+later on since <code>eDeliver</code> will not connect unless <code>Host</code>
+is an actual DNS name or an IP address.
+
 
   # Update the VM instance
   sudo freebsd-update fetch

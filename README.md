@@ -394,7 +394,8 @@ Pay particular attention to
       server: true,
 
 Since we are running this server through <code>nginx</code>, the deployed Phoenix
-server only needs to listen on the local machine. This will prevent outside access
+server only needs to listen on the local machine -- and this coincides with how
+we setup our proxy in <code>nginx.conf</code>. This will prevent outside access
 to your Phoenix server on port 4000. Also note that instead of <code>host:</code>
 the address is specified with <code>ip:</code>, AND that the address is a <code>tuple</code>.
 
@@ -434,7 +435,5 @@ installs the base applications in <code>base-installs.sh</code>,
 installs the web applications in <code>web-installs.sh</code>,
 sets up the config files for nginx (but prompts the user that installation must be run manually).
 
-Once run, the server is ready for web application deployment.
 
 
-Example how to create a project and VM instance

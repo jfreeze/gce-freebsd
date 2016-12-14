@@ -189,7 +189,7 @@ in batch.
 ### Setup the Web Server
 
 There are several apps that need to be installed for the new server to be a build host and
-a web host. The main difference is that a web host needs <code>nginx</code> and <code>erlang</code>, 
+a web host. The differences between the two is that a web host needs <code>nginx</code> and <code>erlang</code>, 
 but not <code>elixir</code>. And the build host needs <code>elixir</code>.
 
 The scripts provided here install <code>elixir</code> and provide the script for <code>nginx</code>
@@ -197,8 +197,8 @@ installation, but that requires a manual step at the end. So, even though <code>
 is not needed for a web host, the scripts here could still be used for that purpose without any change.
 
 
-  # Run the gce-freebsd setup script to prepare for Phoenix webserver
-  \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash 
+    # Run the gce-freebsd setup script to prepare for Phoenix webserver
+    \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/freebsd-setup.sh | bash 
 
   # Update the shell for edeliver
   ./tmp/chg-shell-to-bash.sh

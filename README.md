@@ -570,6 +570,6 @@ It's interesting to note that these simple steps allow the web browser to handle
     https://elixirconf.com
     https://www.elixirconf.com
 
-The all redirect to <code>https://elixirconf.com</code>.
+They all redirect to <code>https://elixirconf.com</code>.
 
 

@@ -1,8 +1,18 @@
 # About
 
-This is a collection of scripts and instructions for setting up a 
+This is the project that I used to deploy [ElixirConf.com](http://elixirconf.com).
+
+It is a collection of scripts and instructions for setting up a 
 cloud web server, along with DNS, SSL, and deploying a Phoenix 
 web application using Distillery and eDeliver.
+
+The scripts (and these instructions) were written to assist me in setting up
+new web servers quickly. With them I can create a VM, setup a SSL website,
+and deploy a local Phoenix app in under 10 minutes.
+
+This guide should be of some help to anyone wanting to setup a website with Phoenix, even
+if you are not using FreeBSD or GCE. Just note, that some scripts will need to be
+customized to your situation. I will try to point that out wherever possible.
 
 # Choices
 
@@ -34,7 +44,7 @@ Google Compute Engine VM's under. Google allows up to five projects.
 This is a seldom done task and is easy enough to do that I am not providing
 and console oriented way of creating a project. 
 
-Simply open up your [GCE console] https://console.cloud.google.com/iam-admin/iam/
+Simply open up your [GCE console](https://console.cloud.google.com/iam-admin/iam/)
 in a web browser, click the three horizontal bars (the hamburger menu) in the upper
 left of the page, select <code>IAM &amp; Admin</code>, then click on 
 <code>All Projects</code>. You should see a <code>+ CREATE PROJECT</code> 

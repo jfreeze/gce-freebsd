@@ -563,6 +563,12 @@ for URLs
     #url: [host: "elixirconf.com", port: 80],
     url: [host: "elixirconf.com", port: 443], # for ssl thru nginx
 
+You can also go back now and edit <code>.deliver/config</code> and update the server
+variables with your new DNS name.
+
+    BUILD_HOST="elixirconf.com"
+    PRODUCTION_HOSTS="elixirconf.com"
+
 It's interesting to note that these simple steps allow the following URLs to be handled:
 
     http://elixirconf.com

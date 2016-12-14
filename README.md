@@ -563,7 +563,7 @@ for URLs
     #url: [host: "elixirconf.com", port: 80],
     url: [host: "elixirconf.com", port: 443], # for ssl thru nginx
 
-It's interesting to note that these simple steps allow the web browser to handle all of the following requests:
+It's interesting to note that these simple steps allow the following URLs to be handled:
 
     http://elixirconf.com
     http://www.elixirconf.com

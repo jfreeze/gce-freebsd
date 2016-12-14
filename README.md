@@ -549,10 +549,13 @@ to run the renew script before the certs expire, the request will just be ignore
 Letsencrypt reserves the right to cancel SSL certs at anytime, so running a renew twice 
 a day will minimize any downtime should the cert be recalled early.
 
-Simply add to your user cronjobs by running the following on the deploy machine.
+Simply add to your root user cronjobs by running the following on the deploy machine.
 The docs also request that you pick a random minute with which to run the cronjob.
 
-    crontab -l | { cat; echo "14 11,23 * * * /usr/local/bin/certbot renew"; } | crontab -
+    sudo su -
+    crontab -e
+    # add the following to root's cron
+    14 11,23 * * * /usr/local/bin/certbot renew
 
 One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
 for URLs

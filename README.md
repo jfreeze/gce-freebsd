@@ -268,7 +268,7 @@ can be done inside a shell script, or now, with the updated Distillery, can
 be done with an Elixir plugin.
 
 You can add that plugin to populate the <code>priv/</code> directory during deployments
-with the following script. Replace <code><ProjectName></code> with the name of your project
+with the following script. Replace <code>&lt;ProjectName></code> with the name of your project
 and run
 
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>

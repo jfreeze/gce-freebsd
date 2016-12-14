@@ -204,6 +204,12 @@ Run the command below:
 This script installs several apps and also places some code in <code>/tmp</code> for you to run manually
 as needed. The base installs should not take too long to run.
 
+This script sets the user environment found with <code>user-env.sh</code>, 
+installs the base applications with  <code>base-installs.sh</code>, 
+installs the web applications with <code>web-installs.sh</code>,
+and installs and sets up the config files for nginx (but prompts the user that installation must be run manually).
+
+
 ### Customizing the Install
 
 FreeBSD by default uses <code>sh</code> as a default shell. We need to change that to <code>bash</code>
@@ -407,16 +413,24 @@ ports yet not responding to any attempted connections.
 Before deploying, make sure that your project files are up to date with
 the Distillery and eDeliver configs checked into git.
 
-Start the deploy process with
+Start the deploy process by building the release
 
     mix edeliver build release
 
-Finish the deploy with
+Finish the deploy and restart the service in one command with
 
     mix edeliver deploy release to production --start-deploy
 
 Add the --verbose flag if needed to debug any issues.
 
+You can also skip the <code>--start-deploy</code> flag and manually start
+and stop the server with the commands
+
+    mix edeliver stop production
+    mix edeliver start production
+    mix edeliver restart production
+
+### Deploy details
 
     # remove builds on the build server
     ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
@@ -424,16 +438,8 @@ Add the --verbose flag if needed to debug any issues.
     # version is set in .deliver/config
     mix edeliver build release
 
-    mix edeliver stop production
-    mix edeliver start production
-    mix edeliver restart production
 
 
-------
-This script sets the user environment found in the <code>user-env.sh</code>, 
-installs the base applications in <code>base-installs.sh</code>, 
-installs the web applications in <code>web-installs.sh</code>,
-sets up the config files for nginx (but prompts the user that installation must be run manually).
 
 
 

@@ -164,7 +164,7 @@ Edit your <code>~/.ssh/config</code> file and add
       HostName <server-IP>
       IdentityFile ~/.ssh/google_compute_engine
 
-With this setup, you can run <code>ssh &amp;shortname></code> to connect
+With this setup, you can run <code>ssh &lt;shortname></code> to connect
 to the server. It's very convenient.
 
 You will also need the <code>server-IP</code> version for deployment

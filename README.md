@@ -116,8 +116,10 @@ Since this is a one time task, it is simple enough to do
 it from the GCE web console.
 
 In the console, click on the instance name, click edit at the top of the page,
-change the IP address from <code>ephemeral IP</code> to <code>static IP</code>.
-You will need to create a name for your static IP. I used <code>elixirconf-com</code>.
+scroll down to <code>External IP</code> and change the address from 
+<code>ephemeral</code> to <code>New static IP address...</code>.
+You will need to create a name for your static IP. 
+I used <code>elixirconf-com</code>.
 Save the changes.
 
 ### Connect to the new VM Instance (Your web server)

@@ -372,6 +372,7 @@ Create directories on the build server as specified in .deliver/config if needed
     ssh ecw "mkdir -p /app/builds/secret"
     scp config/prod.secret.exs jimfreeze@ecw:/app/builds/secret
 
+The `ecw` is an ssh alias for my build/deploy machine.
 
 # Deploy!!!
 
@@ -440,11 +441,11 @@ server, add the following to cron (with your appropriate changes)
 As you will find out, deployments start to enter the wild and wooly west at this point.
 As you do multiple deployments, you will see that <code>mix edeliver build release</code>
 will fail if multiple releases are present on the build machine unless 
-the <code>RELEASE_VERSION</code> environment is set when mix is run.
+the <code>RELEASE_VERSION</code> environment variable is set when mix is run.
 
 You will also notice that if multiple releases exist on the local machine, that
 <code>mix edeliver deploy release to production</code> will prompt for which
-version to deploy to the deploy machine.
+version to copy to the deploy machine.
 
 To keep things simple, and so deployments can run without human input, 
 you can clear out releases on the local and remote machines.
@@ -476,7 +477,7 @@ and a "CNAME" are required to complete SSL authentication.
 
     Type          Name                 Content
       A	       elixirconf.com          1.2.3.4
-    CNAME	   www.elixirconf.co m	  elixirconf.com
+    CNAME     www.elixirconf.com     elixirconf.com
 
 If you are setting your DNS server for the first time, point your browser to 
 your new domain to verify DNS is pointing to your new server.
@@ -490,7 +491,7 @@ And stop nginx so you can authenticate with the cert server.
     sudo /usr/local/etc/rc.d/nginx stop
 
 And run the following script to automatically obtain your certs. Don't forget
-to update is for your project.
+to update for your project.
 
     sudo certbot certonly  --standalone --rsa-key-size 4096 --email <me@email.com> -d <mydomain.com>
 

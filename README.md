@@ -461,10 +461,6 @@ for my build/deploy machine.
     mix edeliver build release
     mix edeliver deploy release to production --start-deploy
 
-    ssh ecw "rm -rf /tmp/releases"
-    ssh ecw "mv -f /app/deploys/elixirconf/releases /tmp; "
-    ssh ecw "rm -rf /app/deploys/elixirconf/releases"
-
 # SSL Configuration
 
 For SSL configuration of the website we are going to obtain a certificate from 

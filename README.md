@@ -453,10 +453,13 @@ Here is one possible script for auto deployment. The <code>ecw</code> is an ssh 
 for my build/deploy machine.
 
     #!/bin/sh
+
     # remove releases on the build server
     ssh ecw "rm -rf /tmp/releases; mv -f /app/deploys/elixirconf/releases /tmp; rm -rf /app/deploys/elixirconf/releases"
+
     # remove local releases
     rm .deliver/releases/*gz
+
     mix edeliver build release
     mix edeliver deploy release to production --start-deploy
 

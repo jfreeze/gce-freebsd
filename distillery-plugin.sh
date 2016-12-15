@@ -7,14 +7,13 @@ usage ()
   exit
 }
 
-if [ "$#" -ne 1 ]
-then
+if [ "$#" -ne 1 ]; then
   usage
 fi
 
 run () {
 
-CMD=$(cat <<EOF
+    CMD=$(cat <<EOF
 defmodule ${1}.PhoenixDigestTask do
   use Mix.Releases.Plugin
 
@@ -60,9 +59,23 @@ end
 EOF
 )
 
-  echo "${CMD}
+    echo "Generating plugin.."
+    mkdir -p rel/plugins
+    echo "${CMD}" > rel/plugins/digest_plugin.exs
+
+    echo "Updating rel/config.exs.."
+
+    PREV_CONFIG=$(cat rel/config.exs)
+    CONFIG=$(cat <<EOF
+Code.eval_file(Path.join([__DIR__, "plugins", "digest_plugin.exs"]))
+
+${PREV_CONFIG}
+EOF
+)
   
-$(cat rel/config.exs)" > rel/config.exs
+    echo "${CONFIG}" > rel/config.exs
+
+    echo "Done!"
 }
 
 run $1

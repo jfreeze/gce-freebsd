@@ -3,7 +3,7 @@
 usage ()
 {
   echo "Usage : $(basename "$0") project-name"
-  echo "Updates rel/config.exs with a Distillery plugin module to populate priv/ for deployments."
+  echo "Creates a Distillery rel/digest_plugins.exs file updates rel/config.exs to populate priv/static for deployments."
   exit
 }
 

@@ -239,7 +239,7 @@ with the command
 
 If not rebooted yet, you can start <code>nginx</code> with
 
-    sudo /usr/local/etc/rc.d/nginx start  
+    sudo service nginx start  
 
 That's it for the remote server.
 
@@ -488,7 +488,7 @@ On the web server, run the following to install the cert script
 
 And stop nginx so you can authenticate with the cert server.
 
-    sudo /usr/local/etc/rc.d/nginx stop
+    sudo service nginx stop
 
 And run the following script to automatically obtain your certs. Don't forget
 to update for your project.
@@ -540,7 +540,7 @@ Update your <code>nginx.conf</code> file to be similar to
 
 and restart <code>nginx</code>
 
-    sudo /usr/local/etc/rc.d/nginx start
+    sudo service nginx start
 
 With Letsencrypt, SSL certs only last a maximum of three months. According to the docs, it
 is advised that you setup a cronjob to run twice a day to renew the certs. It won't hurt

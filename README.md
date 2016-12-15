@@ -279,7 +279,7 @@ and run
 
     \curl -sSL https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/distillery-plugin.sh | bash -s <ProjectName>
 
-This script will create the plugin script in `rel/plugins/static_plugin.exs`, and import it in `rel/config.exs`.
+This script will create the plugin script in `rel/plugins/digest_plugin.exs`, and import it in `rel/config.exs`.
 
 Now edit <code>rel/config.exs</code> and change the default environment to <code>:prod</code>
 

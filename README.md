@@ -557,7 +557,7 @@ The docs also request that you pick a random minute with which to run the cronjo
     # add the following to root's cron
     14 11,23 * * * /usr/local/bin/certbot renew
 
-One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
+One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> scheme
 for URLs and `force_ssl` for rejecting http connections and setting headers that force ssl (thanks [ericmj](https://github.com/ericmj)
 
     #url: [host: "elixirconf.com", port: 80],

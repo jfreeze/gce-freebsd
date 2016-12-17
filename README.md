@@ -558,10 +558,11 @@ The docs also request that you pick a random minute with which to run the cronjo
     14 11,23 * * * /usr/local/bin/certbot renew
 
 One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
-for URLs
+for URLs and `force_ssl` for rejecting http connections and setting headers that force ssl (thanks [ericmj](https://github.com/ericmj)
 
     #url: [host: "elixirconf.com", port: 80],
     url: [host: "elixirconf.com", scheme: "https", port: 443], # static_url will now return https:// addresses
+    force_ssl: [hsts: true, host: nil, rewrite_on: [:x_forwarded_proto]],
 
 You can also go back now and edit <code>.deliver/config</code> and update the server
 variables with your new DNS name.

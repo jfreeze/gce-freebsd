@@ -327,6 +327,7 @@ and adding a <code>.deliver/config</code> file.
     PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
     DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
                                          # must agree with output_dir in rel/config.exs
+    RELEASE_DIR="/app/deploys/elixirconf"# use same as DELIVER_TO if needed
 
     # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
     pre_erlang_get_and_update_deps() {
@@ -555,12 +556,6 @@ The docs also request that you pick a random minute with which to run the cronjo
     crontab -e
     # add the following to root's cron
     14 11,23 * * * /usr/local/bin/certbot renew
-
-One final step in the SSL configuration is to edit <code>config/prod.exs</code> to have Phoenix use the <code>https</code> schema
-for URLs
-
-    #url: [host: "elixirconf.com", port: 80],
-    url: [host: "elixirconf.com", port: 443], # for ssl thru nginx
 
 You can also go back now and edit <code>.deliver/config</code> and update the server
 variables with your new DNS name.

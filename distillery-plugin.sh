@@ -67,7 +67,7 @@ EOF
 
     PREV_CONFIG=$(cat rel/config.exs)
     CONFIG=$(cat <<EOF
-Code.eval_file(Path.join([__DIR__, "plugins", "digest_plugin.exs"]))
+Code.eval_file(Path.join([__DIR__, "rel", "plugins", "digest_plugin.exs"]))
 
 ${PREV_CONFIG}
 EOF

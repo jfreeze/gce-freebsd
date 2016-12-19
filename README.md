@@ -325,9 +325,9 @@ and adding a <code>.deliver/config</code> file.
 
     PRODUCTION_HOSTS="130.211.190.72"    # deploy / production hosts separated by space
     PRODUCTION_USER="jimfreeze"          # local user at deploy hosts
-    DELIVER_TO="/app/deploys/elixirconf" # deploy directory on production hosts
-                                         # must agree with output_dir in rel/config.exs
-    RELEASE_DIR="/app/deploys/elixirconf"# use same as DELIVER_TO if needed
+    DELIVER_TO="/app/deploys"            # writes releases to $DELIVER_TO/$APP
+                                         # set to agree with output_dir in rel/config.exs
+    RELEASE_DIR="/app/deploys/elixirconf"# use same as output_dir if needed
 
     # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
     pre_erlang_get_and_update_deps() {

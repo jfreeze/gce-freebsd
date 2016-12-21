@@ -564,6 +564,9 @@ for URLs and `force_ssl` for rejecting http connections and setting headers that
     url: [host: "elixirconf.com", scheme: "https", port: 443], # static_url will now return https:// addresses
     force_ssl: [hsts: true, host: nil, rewrite_on: [:x_forwarded_proto]],
 
+I have had some issues with sites redirecting to `https://127.0.0.1` when using the `force_ssl` line in `prod.exs`.
+If you experience problems, comment out the line. Or, better yet, if you experience problems and have a fix, a pull request will be much appreciated!
+
 You can also go back now and edit <code>.deliver/config</code> and update the server
 variables with your new DNS name.
 

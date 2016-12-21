@@ -73,7 +73,7 @@ link in the top center of the page to create a new project.
 
 ## Create the VM Network 
 
-I prefer a customized a network so I don't have unused firewall rules in it
+I prefer a customized network so I don't have unused firewall rules in it
 and I like GCE's target tags that allow firewall rules to be applied to selected
 machines only. For this reason, I delete the default network and firewall rules
 on new projects. Notice that the examples shown here are for the GCE project 

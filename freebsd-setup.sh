@@ -18,6 +18,7 @@ curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/web-installs.s
 
 echo "Copying extra config files..."
 curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/chg-shell-to-bash.sh > /tmp/chg-shell-to-bash.sh
+chmod 755 /tmp/chg-shell-to-bash.sh
 
 echo "Configuring nginx..."
 curl https://raw.githubusercontent.com/jfreeze/gce-freebsd/master/nginx-setup.sh > /tmp/nginx-setup.sh

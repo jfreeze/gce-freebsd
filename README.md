@@ -216,7 +216,7 @@ FreeBSD by default uses <code>sh</code> as a default shell. We need to change th
 to support <code>eDeliver</code>.
 
     # Update the shell for edeliver
-    ./tmp/chg-shell-to-bash.sh
+    sh /tmp/chg-shell-to-bash.sh
     exit # logout and log back in
 
 ### Install nginx

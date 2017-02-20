@@ -14,25 +14,25 @@ fi
 
 run () {
   CMD1=$(cat <<EOF
-  gcloud compute firewall-rules delete "default-allow-icmp" \
+  echo "Y" | gcloud compute firewall-rules delete "default-allow-icmp" \
       --project "${1}"
 EOF
 )
 
   CMD2=$(cat <<EOF
-  gcloud compute firewall-rules delete "default-allow-internal" \
+  echo "Y" | gcloud compute firewall-rules delete "default-allow-internal" \
       --project "${1}"
 EOF
 )
 
   CMD3=$(cat <<EOF
-  gcloud compute firewall-rules delete "default-allow-rdp" \
+  echo "Y" | gcloud compute firewall-rules delete "default-allow-rdp" \
       --project "${1}"
 EOF
 )
 
   CMD4=$(cat <<EOF
-  gcloud compute firewall-rules delete "default-allow-ssh" \
+  echo "Y" | gcloud compute firewall-rules delete "default-allow-ssh" \
       --project "${1}"
 EOF
 )
